@@ -53,6 +53,7 @@ pub(crate) struct GlyphToRender {
     content_type: u32,
     depth: f32,
     angle: f32,
+    rotation_origin: [f32; 2],
 }
 
 /// The screen resolution to use when rendering text.
@@ -114,5 +115,7 @@ pub struct TextArea<'a> {
     // The default color of the text area.
     pub default_color: Color,
     /// Rotation angle in degrees
-    pub angle: f32
+    pub angle: f32,
+    /// Point to rotate text around. Defaults to top left
+    pub rotation_origin: Option<[f32; 2]>,
 }

@@ -281,6 +281,7 @@ impl TextRenderer {
                             content_type: content_type as u32,
                             depth,
                             angle: text_area.angle,
+                            rotation_origin: text_area.rotation_origin.unwrap_or([text_area.top, text_area.left])
                         })
                         .take(4),
                     );
