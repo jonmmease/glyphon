@@ -113,6 +113,7 @@ async fn run() {
                                 bottom: 160,
                             },
                             default_color: Color::rgb(255, 255, 255),
+                            angle: 0.0,
                         }],
                         &mut cache,
                     )

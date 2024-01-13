@@ -134,7 +134,9 @@ impl TextRenderer {
 
                             // Find a position in the packer
                             let allocation = loop {
-                                match inner.try_allocate(width, height) {
+                                // Add 1-pixel buffer to avoid linear interpolation artifacts
+                                // with rotated text
+                                match inner.try_allocate(width + 1, height + 1) {
                                     Some(a) => break a,
                                     None => {
                                         if !atlas.grow(
@@ -278,6 +280,7 @@ impl TextRenderer {
                             color: color.0,
                             content_type: content_type as u32,
                             depth,
+                            angle: text_area.angle,
                         })
                         .take(4),
                     );

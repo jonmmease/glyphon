@@ -286,9 +286,9 @@ impl TextAtlas {
     ) -> Self {
         let sampler = device.create_sampler(&SamplerDescriptor {
             label: Some("glyphon sampler"),
-            min_filter: FilterMode::Nearest,
-            mag_filter: FilterMode::Nearest,
-            mipmap_filter: FilterMode::Nearest,
+            min_filter: FilterMode::Linear,
+            mag_filter: FilterMode::Linear,
+            mipmap_filter: FilterMode::Linear,
             lod_min_clamp: 0f32,
             lod_max_clamp: 0f32,
             ..Default::default()
@@ -304,35 +304,47 @@ impl TextAtlas {
             array_stride: size_of::<GlyphToRender>() as wgpu::BufferAddress,
             step_mode: wgpu::VertexStepMode::Vertex,
             attributes: &[
+                // pos
                 wgpu::VertexAttribute {
                     format: VertexFormat::Sint32x2,
                     offset: 0,
                     shader_location: 0,
                 },
+                // dim
                 wgpu::VertexAttribute {
                     format: VertexFormat::Uint32,
                     offset: size_of::<u32>() as u64 * 2,
                     shader_location: 1,
                 },
+                // uv
                 wgpu::VertexAttribute {
                     format: VertexFormat::Uint32,
                     offset: size_of::<u32>() as u64 * 3,
                     shader_location: 2,
                 },
+                // color
                 wgpu::VertexAttribute {
                     format: VertexFormat::Uint32,
                     offset: size_of::<u32>() as u64 * 4,
                     shader_location: 3,
                 },
+                // content_type
                 wgpu::VertexAttribute {
                     format: VertexFormat::Uint32,
                     offset: size_of::<u32>() as u64 * 5,
                     shader_location: 4,
                 },
+                // depth
                 wgpu::VertexAttribute {
                     format: VertexFormat::Float32,
                     offset: size_of::<u32>() as u64 * 6,
                     shader_location: 5,
+                },
+                // angle
+                wgpu::VertexAttribute {
+                    format: VertexFormat::Float32,
+                    offset: size_of::<u32>() as u64 * 7,
+                    shader_location: 6,
                 },
             ],
         }];

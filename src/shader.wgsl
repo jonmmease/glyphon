@@ -6,6 +6,7 @@ struct VertexInput {
     @location(3) color: u32,
     @location(4) content_type: u32,
     @location(5) depth: f32,
+    @location(6) angle: f32,
 }
 
 struct VertexOutput {
@@ -31,6 +32,8 @@ var mask_atlas_texture: texture_2d<f32>;
 
 @group(0) @binding(3)
 var atlas_sampler: sampler;
+
+const PI = 3.14159265359;
 
 @vertex
 fn vs_main(in_vert: VertexInput) -> VertexOutput {
@@ -61,8 +64,11 @@ fn vs_main(in_vert: VertexInput) -> VertexOutput {
 
     var vert_output: VertexOutput;
 
+    let angle_rad = PI * in_vert.angle / 180.0;
+    let rot = mat2x2(cos(angle_rad), -sin(angle_rad), sin(angle_rad), cos(angle_rad));
+    let rot_pos = rot * vec2<f32>(pos);
     vert_output.position = vec4<f32>(
-        2.0 * vec2<f32>(pos) / vec2<f32>(params.screen_resolution) - 1.0,
+        2.0 * vec2<f32>(rot_pos) / vec2<f32>(params.screen_resolution) - 1.0,
         in_vert.depth,
         1.0,
     );
