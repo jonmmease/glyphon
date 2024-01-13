@@ -225,44 +225,47 @@ impl TextRenderer {
                     let bounds_max_x = text_area.bounds.right.min(screen_resolution.width as i32);
                     let bounds_max_y = text_area.bounds.bottom.min(screen_resolution.height as i32);
 
-                    // Starts beyond right edge or ends beyond left edge
-                    let max_x = x + width;
-                    if x > bounds_max_x || max_x < bounds_min_x {
-                        continue;
-                    }
+                    // Only clip un-rotated text for now
+                    if text_area.angle == 0.0 {
+                        // Starts beyond right edge or ends beyond left edge
+                        let max_x = x + width;
+                        if x > bounds_max_x || max_x < bounds_min_x {
+                            continue;
+                        }
 
-                    // Starts beyond bottom edge or ends beyond top edge
-                    let max_y = y + height;
-                    if y > bounds_max_y || max_y < bounds_min_y {
-                        continue;
-                    }
+                        // Starts beyond bottom edge or ends beyond top edge
+                        let max_y = y + height;
+                        if y > bounds_max_y || max_y < bounds_min_y {
+                            continue;
+                        }
 
-                    // Clip left ege
-                    if x < bounds_min_x {
-                        let right_shift = bounds_min_x - x;
+                        // Clip left ege
+                        if x < bounds_min_x {
+                            let right_shift = bounds_min_x - x;
 
-                        x = bounds_min_x;
-                        width = max_x - bounds_min_x;
-                        atlas_x += right_shift as u16;
-                    }
+                            x = bounds_min_x;
+                            width = max_x - bounds_min_x;
+                            atlas_x += right_shift as u16;
+                        }
 
-                    // Clip right edge
-                    if x + width > bounds_max_x {
-                        width = bounds_max_x - x;
-                    }
+                        // Clip right edge
+                        if x + width > bounds_max_x {
+                            width = bounds_max_x - x;
+                        }
 
-                    // Clip top edge
-                    if y < bounds_min_y {
-                        let bottom_shift = bounds_min_y - y;
+                        // Clip top edge
+                        if y < bounds_min_y {
+                            let bottom_shift = bounds_min_y - y;
 
-                        y = bounds_min_y;
-                        height = max_y - bounds_min_y;
-                        atlas_y += bottom_shift as u16;
-                    }
+                            y = bounds_min_y;
+                            height = max_y - bounds_min_y;
+                            atlas_y += bottom_shift as u16;
+                        }
 
-                    // Clip bottom edge
-                    if y + height > bounds_max_y {
-                        height = bounds_max_y - y;
+                        // Clip bottom edge
+                        if y + height > bounds_max_y {
+                            height = bounds_max_y - y;
+                        }
                     }
 
                     let color = match glyph.color_opt {
