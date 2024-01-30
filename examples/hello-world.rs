@@ -1,4 +1,4 @@
-use glyphon::{
+use avenger_glyphon::{
     Attrs, Buffer, Color, Family, FontSystem, Metrics, Resolution, Shaping, SwashCache, TextArea,
     TextAtlas, TextBounds, TextRenderer,
 };
@@ -103,17 +103,18 @@ async fn run() {
                         },
                         [TextArea {
                             buffer: &buffer,
-                            left: 10.0,
-                            top: 10.0,
+                            left: 200.0,
+                            top: 200.0,
                             scale: 1.0,
                             bounds: TextBounds {
                                 left: 0,
                                 top: 0,
                                 right: 600,
-                                bottom: 160,
+                                bottom: 360,
                             },
                             default_color: Color::rgb(255, 255, 255),
-                            angle: 0.0,
+                            angle: -30.0,
+                            rotation_origin: Some([200.0, 200.0]),
                         }],
                         &mut cache,
                     )

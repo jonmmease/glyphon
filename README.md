@@ -1,3 +1,8 @@
+This is a (hopefully short-term) fork of the excellent glyphon project which adds text rotation support.
+The approach here is used by the Avenger visualization project, but is not sufficiently general as to be
+included in glyphon itself. See discussion in https://github.com/grovesNL/glyphon/pull/64 for background.
+
+---
 <h1 align="center">
   🦅 glyphon 🦁
 </h1>
